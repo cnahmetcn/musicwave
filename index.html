@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <title>Music Wave</title>
+</head>
+<body>
+    <div class="hero">
+       <div class="music">
+           <img src="assets/broken.jpg" alt="Depeche Mode Broken">
+           <div class="info">
+               <h1>Depeche Mode - Broken</h1>
+               <p>Delta Machine</p>
+               <div id="waveform"></div>
+               <div class="controls">
+                   <img src="assets/play.png" id="playBtn">
+                   <img src="assets/stop.png" id="stopBtn">
+                   <img src="assets/volume.png" id="volumeBtn">
+               </div>
+           </div>
+       </div>
+    </div>
+
+    <script>
+        var playBtn = document.getElementById('playBtn');
+        var stopBtn = document.getElementById('stopBtn');
+        var volumeBtn = document.getElementById('volumeBtn');
+
+        var wavesurfer = WaveSurfer.create({
+            container: '#waveform',
+            waveColor: 'aqua',
+            progressColor: 'yellow',
+            barWidth: 5,
+            height:90,
+            responsive: true,
+            hideScrollbar: true,
+            barRadius: 5,
+        });
+    wavesurfer.load('assets/Broken.mp3');
+
+playBtn.onclick = function() {
+    wavesurfer.playPause();
+    if(playBtn.src.includes("assets/play.png")){
+        playBtn.src = "assets/pause.png";
+    }else{
+        playBtn.src = "assets/play.png";
+    }
+}
+
+stopBtn.onclick = function() {
+    wavesurfer.stop();
+    playBtn.src = "assets/play.png";
+}
+
+volumeBtn.onclick = function() {
+    wavesurfer.toggleMute();
+        if(volumeBtn.src.includes("volume.png")){
+        volumeBtn.src = "assets/mute.png";
+    }else{
+        volumeBtn.src = "assets/volume.png";
+    }
+}
+
+    wavesurfer.on('finish', function() {
+        playBtn.src = "assets/play.png";
+        wavesurfer.stop();
+    });
+    </script>
+</body>
+</html>
